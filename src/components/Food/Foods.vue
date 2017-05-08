@@ -1,5 +1,6 @@
 <template>
     <div class="col-xs-12">
+        <!--<img :src="img">-->
         <button class="btn btn-default" @click="shuffle">Shuffle</button>
         <button class="btn btn-default" @click="reset">Reset</button>
         <button class="btn btn-default btn-like" @click="fetchLoveFood" :class="{ 'is-active' : filteredlikeStatus === true}">Love Food</button>
@@ -35,7 +36,8 @@
                                 v-else="!food.status">
                     </span>
                     </p>
-                    <img class="img-responsive food-image" :src="'src/assets/images/'+ food.img">
+                    <!--<img class="img-responsive food-image" :src="'src/assets/images/'+ food.img">-->
+                    <img class="img-responsive food-image" :src="require('../../assets/images/'+ food.img)">
                 </div>
 
 
@@ -60,10 +62,11 @@
                     {id: 7, name: "milk", img: "milk.svg", status: true},
                     {id: 8, name: "noodle", img: "noodle.svg", status: false},
                     {id: 9, name: "pizza", img: "pizza.svg", status: false},
-                    {id: 10, name: "rice_balls", img: "rice_balls.svg", status: false},
+                    {id: 10, name: "rice_balls", img: "rice_balls.svg", status: false}
                 ],
                 filteredlikeStatus: null,
-                filteredName: ''
+                filteredName: '',
+                img: require('../../assets/images/cake.svg')
             }
         },
         computed: {

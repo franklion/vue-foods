@@ -1,5 +1,6 @@
 <template>
     <div class="container">
+        <img src="./assets/logo.png">
         <app-header></app-header>
 
         <div class="row">

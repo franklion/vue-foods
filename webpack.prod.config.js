@@ -1,7 +1,8 @@
-const path    = require('path');
-const webpack = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const path               = require('path');
+const webpack            = require('webpack');
+const HtmlWebpackPlugin  = require('html-webpack-plugin');
+const ExtractTextPlugin  = require('extract-text-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = {
     entry: './src/main.js',
@@ -21,20 +22,18 @@ module.exports = {
                             loader: 'css-loader',
                             fallbackLoader: 'vue-style-loader'
                         })
-                    },
-                    publicPath: ""
+                    }
                 }
             },
             {
                 test: /\.js$/,
-                loader: 'babel',
-                exclude: /node_modules/
+                exclude: /node_modules/,
+                loader: 'babel'
             },
             {
-                test: /\.(png|jpg|gif|svg)$/,
+                test: /\.(png|jpe?g|gif|svg)$/,
                 loader: 'file',
                 options: {
-                    // outputPath: path.resolve(__dirname, './dist/assets/images'),
                     publicPath: "",
                     name: 'assets/images/[name].[ext]?[hash]'
                 }
@@ -46,10 +45,6 @@ module.exports = {
             'vue$': 'vue/dist/vue'
         }
     },
-    devServer: {
-        historyApiFallback: true,
-        noInfo: true
-    },
     devtool: '#source-map',
     plugins: [
         new ExtractTextPlugin("[name].css"),
@@ -58,18 +53,23 @@ module.exports = {
                 NODE_ENV: '"production"'
             }
         }),
-        // new webpack.optimize.UglifyJsPlugin({
-        //     compress: {
-        //         warnings: false
-        //     }
-        // }),
-        new webpack.LoaderOptionsPlugin({
-            // minimize: true
+        new webpack.optimize.UglifyJsPlugin({
+            compress: {
+                warnings: false
+            }
         }),
-        new HtmlWebpackPlugin({                                                                        // 构建html文件
+        new webpack.LoaderOptionsPlugin({
+            minimize: true
+        }),
+        new HtmlWebpackPlugin({
             filename: 'index.html',
             template: './src/template/index.ejs',
             inject: false
+        }),
+        new CleanWebpackPlugin(['dist'], {
+            root: __dirname,
+            verbose: true,
+            dry: false
         })
     ]
 };

@@ -1,4 +1,4 @@
-const path = require('path');
+const path    = require('path');
 const webpack = require('webpack');
 
 module.exports = {
@@ -14,7 +14,7 @@ module.exports = {
                 test: /\.vue$/,
                 loader: 'vue',
                 options: {
-                    // vue-loader options go here
+                    loaders: {}
                 }
             },
             {
@@ -43,10 +43,12 @@ module.exports = {
     devtool: '#eval-source-map'
 };
 
+
 if (process.env.NODE_ENV === 'production') {
     module.exports.devtool = '#source-map';
     // http://vue-loader.vuejs.org/en/workflow/production.html
     module.exports.plugins = (module.exports.plugins || []).concat([
+
         new webpack.DefinePlugin({
             'process.env': {
                 NODE_ENV: '"production"'

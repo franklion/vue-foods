@@ -1,10 +1,19 @@
 <template>
-    <div class="col-xs-12">
+    <div class="col-xs-12 foods-container">
         <!--<img :src="img">-->
+
         <button class="btn btn-default" @click="shuffle">Shuffle</button>
+
+
         <button class="btn btn-default" @click="reset">Reset</button>
-        <button class="btn btn-default btn-like" @click="fetchLoveFood" :class="{ 'is-active' : filteredlikeStatus === true}">Love Food</button>
-        <button class="btn btn-default btn-like" @click="fetchNormalFood" :class="{ 'is-active' : filteredlikeStatus === false}">Normal Food</button>
+
+
+        <button class="btn btn-default btn-like" @click="fetchLoveFood"
+                :class="{ 'is-active' : filteredlikeStatus === true}">Love Food
+        </button>
+        <button class="btn btn-default btn-like" @click="fetchNormalFood"
+                :class="{ 'is-active' : filteredlikeStatus === false}">Normal Food
+        </button>
         <hr>
 
         <div class="row">
@@ -22,7 +31,7 @@
                     v-for="food in filteredFoods"
                     :key="food.id">
 
-                <div class="item ">
+                <div class="list-item">
                     <p class="food-title"># {{ food.id }} {{ food.name }}</p>
                     <p class="food-desc">Status :
                         <span
@@ -39,7 +48,6 @@
                     <!--<img class="img-responsive food-image" :src="'src/assets/images/'+ food.img">-->
                     <img class="img-responsive food-image" :src="require('../../assets/images/'+ food.img)">
                 </div>
-
 
 
             </li>
@@ -72,9 +80,9 @@
         computed: {
             filteredFoods() {
                 return this.foods.filter((food) => {
-                   let filteredlikeStatusCondition = this.filteredlikeStatus === null ? true : ( food.status === this.filteredlikeStatus);
-                   let filteredNameCondition = this.filteredName === '' ? true : ( food.name.toLowerCase().indexOf( this.filteredName.toLowerCase() ) !== -1 );
-                   return  filteredlikeStatusCondition && filteredNameCondition;
+                    let filteredlikeStatusCondition = this.filteredlikeStatus === null ? true : ( food.status === this.filteredlikeStatus);
+                    let filteredNameCondition       = this.filteredName === '' ? true : ( food.name.toLowerCase().indexOf(this.filteredName.toLowerCase()) !== -1 );
+                    return filteredlikeStatusCondition && filteredNameCondition;
                 });
             }
         },
@@ -84,8 +92,8 @@
             },
             reset() {
                 this.filteredlikeStatus = null;
-                this.filteredName = '';
-                this.foods = _.sortBy(this.foods, ['id']);
+                this.filteredName       = '';
+                this.foods              = _.sortBy(this.foods, ['id']);
             },
             fetchLoveFood() {
                 this.filteredlikeStatus = true;
@@ -99,17 +107,22 @@
 </script>
 
 <style>
-    .item {
+    .foods-container .btn:focus {
+        outline: none;
+    }
+
+    .list-item {
         padding: 10px;
         border: 1px solid #ddd;
     }
+
     .btn-like.focus, .btn-like:focus {
         color: inherit;
         background-color: inherit;
         border-color: inherit;
     }
 
-    .btn-like.is-active {
+    .btn.is-active {
         background-color: #f57f8b;
     }
 

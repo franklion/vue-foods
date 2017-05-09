@@ -2,9 +2,9 @@
     <div class="row">
         <div class="col-xs-12">
             <header class="col-xs-12 page-header">
-                <img :src="img" class="col-xs-4 app-logo">
-                <h1 class="col-xs-6">My Food List</h1>
-                <div class="col-xs-2 app-boom"></div>
+                <img :src="img" class="app-logo">
+                <h1 class="app-title">My Food List</h1>
+                <div class="app-fireworks"></div>
                 <!--<img :src="'../../assets/' + cover ">-->
             </header>
         </div>
@@ -22,17 +22,49 @@
     }
 </script>
 
-<style>
+<style lang="css">
+    .page-header {
+        position: relative;
+    }
+
+    .app-title {
+        line-height: 58px;
+        text-align: center;
+    }
+
     .app-logo {
+        position: absolute;
+        left: 0;
+        top: 0;
         display: block;
         width: 100px;
         height: auto;
     }
-    .app-boom {
+
+    .app-fireworks {
+        position: absolute;
+        right: 0;
+        top: 0;
         width: 100px;
         height: 100px;
-        border:1px #ccc solid;
-        background-image: url("../../assets/images/boom.png");
-        background-repeat:no-repeat;
+        background-size: cover;
+        background-image: url("../../assets/images/fireworks.png");
+        background-repeat: no-repeat;
+    }
+
+    @media screen and (max-width: 500px) {
+        .app-title {
+            font-size: 28px;
+            line-height: 24px;
+        }
+
+        .app-logo {
+            width: 60px;
+        }
+
+        .app-fireworks {
+            width: 60px;
+            height: 60px;
+        }
     }
 </style>
